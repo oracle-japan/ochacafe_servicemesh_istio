@@ -128,10 +128,15 @@ istio-ingressgateway   LoadBalancer   10.96.248.85   xxx.xxx.xxx.xxx   15021:306
 
 ### 3-1. トラフィック制御を体感しよう
 
-まずは、トラフィックを制御してみます。  
-今回は以下のパターンを実施します。  
+ここでは、トラフィックを制御してみます。  
 
-まずは、reviewサービスをv1のみにルーティングしてみます。
+はじめに、DestinationRuleを適用し、サブセットを作成します。  
+
+```sh
+kubectl apply -f manifest/destination_rule.yaml
+``` 
+
+最初に、reviewサービスをv1のみにルーティングしてみます。
 以下のコマンドを実行します。  
 
 ```sh
