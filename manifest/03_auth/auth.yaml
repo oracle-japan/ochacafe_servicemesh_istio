@@ -1,0 +1,31 @@
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: demo-authentication
+spec:
+  # selector:
+  #   matchLabels:
+  #     app: productpage 
+  jwtRules: 
+  - issuer: "xxxxxxx"  # IDaaSのissuer
+    jwksUri: "xxxxxxxxx"  # IDaaSのjwks url
+    forwardOriginalToken: true # JWTの伝播
+---
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: demo-authorization
+spec:
+  # selector:
+  #   matchLabels:
+  #     app: productpage
+  rules: 
+    - from:
+      - source:
+          requestPrincipals: ["xxxxxx/xxxxxx"] # issuer/subject
+      to:
+      - operation:
+          methods:
+          - GET  # 許可するメソッド
+
+
