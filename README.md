@@ -266,6 +266,27 @@ reviewサービスのv1およびv2/v3のトレーシング含めた一覧が表�
 
 まずは、[こちら](https://k6.io/docs/getting-started/installation/)を参考にk6をローカルにインストールします。
 
+スクリプトファイル内のIPアドレスを変更します。
+
+```sh
+vim script/k6.sh
+```
+
+```javascript
+import http from 'k6/http';
+import { check } from 'k6';
+export default function () {
+  const res = http.get('http://xxx.xxx.xxx.xxx/productpage');
+   check(res, {
+     'response code was 200': (res) => res.status == 200,
+     'response code was 503': (res) => res.status == 503,
+  });
+}
+```
+
+4行目の`xxx.xxx.xxx.xxx`を[## 2.サンプルアプリケーションのインストール](#2サンプルアプリケーションのインストール)で確認したIPアドレスに変更します。  
+
+
 以下のコマンドを実行します。  
 
 ```sh
